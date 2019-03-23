@@ -1,0 +1,25 @@
+def best_score(s, DNA, l):
+    score = 0
+    consensus=''
+    for i in range(l):
+        # loop over string positions
+        cnt = dict(zip("acgt",(0,0,0,0)))
+        for j in range(len(s)):
+            #loop over DNA strands
+            base = DNA[j][s[j] + i]
+            cnt[base] += 1
+        
+        A_count = cnt['a']
+        C_count = cnt['c']
+        G_count = cnt['g']        
+        T_count = cnt['t']        
+        score += max(cnt.values())
+        if (A_count == max (cnt.values())):
+            consensus +='A'
+        elif (C_count == max (cnt.values())):
+            consensus +='C'
+        elif (G_count == max (cnt.values())):
+            consensus +='G'
+        elif (T_count == max(cnt.values())):
+            consensus +='T'
+    return score, consensus
