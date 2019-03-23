@@ -1,0 +1,40 @@
+def NextLeaf(a, L, k):
+    '''
+    Funkcja umozliwia przesuwanie sie po kolejnych lisciach w drzewie
+    Generuje wszystkich potencjalnych kandydatow , a mianowicie jest ich k^l
+    '''
+    for i in reversed(range(L)): # petla po liczbie zmiennych , dla l-merow
+        if (a[i] < k):   # a[i] jest aktualnym kandydatem, k jest najwieksza wartoscia
+            a[i] += 1
+            break
+        else:
+            a[i] = 1
+    return a # zwracana jest aktualna lista kandydatow
+
+def NextVertex(a, i, L, k):
+    '''
+    Funkcja umozliwia przesuwanie sie po wierzcholkach w drzewie
+    '''
+    if (i < L):  # "i" jest danym poziomem drzewa
+        a[i] = 1 # jezeli wartosc nie jest w lisciu zmniejsz poziom w drzewie
+        return (a, i+1)
+    else:
+        for j in reversed(range(L)):
+            if (a[j] < k): # jezeli jest w lisciu to przejd do kolejnego liscia
+                a[j] += 1
+                return (a, j+1)
+            a[j] = 0
+    return (a, 0)
+
+def Bypass(a, i, L, k):
+    '''
+    Funkcja biorac pod uwagę wewnętrzny węzeł znajduje następny węzeł
+    po pominięciu wszystkich bieżących dzieci wierzchołków
+    '''
+    
+    for j in reversed(range(i)):
+        if (a[j] < k):   # Funckja odcina niechciane dzieci aby moc przejsc do nastpnego wierzcholka
+            a[j] += 1
+            return (a, j+1)
+        a[j] = 0
+    return (a, 0)
