@@ -1,0 +1,24 @@
+# You must to import your previously functions like "TreeFunctions" and "BestScore"
+
+
+
+
+def BruteForce(DNA,t,n,l):
+    s = [0 for i in range(t)]
+    best_wynik = 0
+    i = 0
+    while True:
+        if (i<t) :
+            s, i = funkcje_drzewo.NextVertex(s,i,t,n-l+1)
+   
+        else:
+            indeksy_DNA = [s[i]-1 for i in range(t)] 
+            wynik, motyw = score.best_score(indeksy_DNA,DNA,l)
+            if wynik > best_wynik :
+                best_wynik = wynik
+                best_motyw = motyw
+                best_indeksy = indeksy_DNA
+            s, i = funkcje_drzewo.NextVertex(s, i,t, n-l+1) 
+            if (sum(s)  == 0) :
+                break
+    return best_wynik, best_motyw, best_indeksy
